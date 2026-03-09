@@ -3,22 +3,22 @@ import styled from "styled-components";
 export const Page = styled.div`
   min-height: 100vh;
   width: 100%;
-  padding: 24px 16px;
-  background: ${(props) => (props.theme.mode === "DARK" ? "#0d0d0d" : "#f7f4f4")};
+  padding: 24px 16px 40px;
+  background: ${(props) => props.theme.body.secondary.base};
 `;
 
 export const Card = styled.div`
   width: 100%;
-  max-width: 1200px;
+  max-width: 860px;
   margin: 0 auto;
-  border: 1px solid ${(props) => (props.theme.mode === "DARK" ? "#2a2a2a" : "#141414")};
-  border-radius: 14px;
-  background: ${(props) => props.theme.body.primary.base};
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
-  padding: 20px;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 14px;
 `;
 
 export const BackButton = styled.button`
@@ -51,11 +51,12 @@ export const MainTitleField = styled.input`
   ${fieldBase}
   border-color: ${(props) => props.theme.border.primary};
   background: ${(props) =>
-    props.theme.mode === "DARK" ? props.theme.body.secondary.base : "#f8f9fb"};
+    props.theme.mode === "DARK" ? props.theme.body.primary.base : props.theme.body.primary.base};
   color: ${(props) => props.theme.text.primary};
   padding: 12px 14px;
-  font-size: 22px;
-  font-weight: 600;
+  font-size: 24px;
+  font-weight: 500;
+  border-radius: 12px;
 
   &:focus {
     border-color: ${(props) => props.theme.primary.base};
@@ -66,33 +67,32 @@ export const MainTitleField = styled.input`
 export const Preview = styled.div`
   position: relative;
   width: 100%;
-  min-height: 420px;
-  border-radius: 12px;
-  border: 1px solid ${(props) => (props.theme.mode === "DARK" ? "#2a2a2a" : "#141414")};
+  min-height: 400px;
+  border-radius: 24px;
+  border: 1px solid ${(props) => props.theme.border.primary};
   overflow: hidden;
   background: ${(props) =>
-    props.theme.mode === "DARK" ? props.theme.body.secondary.base : "#eceef2"};
+    props.theme.mode === "DARK" ? props.theme.body.primary.base : props.theme.body.primary.base};
 
   @media (max-width: 900px) {
-    min-height: 320px;
+    min-height: 300px;
   }
 `;
 
 export const PreviewImage = styled.img`
   width: 100%;
   height: 100%;
-  min-height: 420px;
+  min-height: 400px;
   object-fit: contain;
-  background: ${(props) =>
-    props.theme.mode === "DARK" ? props.theme.body.primary.base : "#f4f5f7"};
+  background: ${(props) => props.theme.body.primary.base};
 
   @media (max-width: 900px) {
-    min-height: 320px;
+    min-height: 300px;
   }
 `;
 
 export const EmptyState = styled.div`
-  min-height: 420px;
+  min-height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -114,38 +114,22 @@ export const EmptyState = styled.div`
   }
 `;
 
-export const Badge = styled.div`
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-  border-radius: 6px;
-  padding: 6px 10px;
-  font-size: 11px;
-  font-weight: 700;
-  color: ${(props) => props.theme.text.primary};
-  background: ${(props) => props.theme.body.primary.base};
-  border: 1px solid ${(props) => (props.theme.mode === "DARK" ? "#2a2a2a" : "#141414")};
-`;
-
 export const FormRow = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-
-  @media (max-width: 860px) {
-    grid-template-columns: 1fr;
-  }
+  grid-template-columns: 1fr;
+  gap: 12px;
 `;
 
 export const Input = styled.input`
   ${fieldBase}
   border-color: ${(props) => props.theme.border.primary};
   background: ${(props) =>
-    props.theme.mode === "DARK" ? props.theme.body.secondary.base : "#f8f9fb"};
+    props.theme.mode === "DARK" ? props.theme.body.primary.base : props.theme.body.primary.base};
   color: ${(props) => props.theme.text.primary};
   padding: 12px 14px;
-  margin-top: 8px;
-  font-size: 15px;
+  margin-top: 0;
+  font-size: 20px;
+  border-radius: 12px;
 
   &:focus {
     border-color: ${(props) => props.theme.primary.base};
@@ -157,14 +141,15 @@ export const DescriptionField = styled.textarea`
   ${fieldBase}
   border-color: ${(props) => props.theme.border.primary};
   background: ${(props) =>
-    props.theme.mode === "DARK" ? props.theme.body.secondary.base : "#f8f9fb"};
+    props.theme.mode === "DARK" ? props.theme.body.primary.base : props.theme.body.primary.base};
   color: ${(props) => props.theme.text.primary};
   padding: 12px 14px;
-  margin-top: 8px;
-  min-height: 104px;
+  margin-top: 0;
+  min-height: 140px;
   resize: vertical;
-  font-size: 14px;
+  font-size: 20px;
   line-height: 1.5;
+  border-radius: 22px;
 
   &:focus {
     border-color: ${(props) => props.theme.primary.base};
@@ -173,8 +158,7 @@ export const DescriptionField = styled.textarea`
 `;
 
 export const ThumbnailsRow = styled.div`
-  border-top: 1px solid ${(props) => props.theme.border.primary};
-  padding-top: 16px;
+  padding-top: 6px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -182,13 +166,14 @@ export const ThumbnailsRow = styled.div`
 `;
 
 export const Thumbnail = styled.button`
-  width: 84px;
-  min-width: 84px;
-  border-radius: 10px;
-  border: 2px solid ${(props) => (props.$active ? props.theme.primary.base : props.theme.mode === "DARK" ? "#2d2d2d" : "#171717")};
+  width: 78px;
+  min-width: 78px;
+  border-radius: 14px;
+  border: 2px solid
+    ${(props) => (props.$active ? props.theme.primary.base : props.theme.border.primary)};
   padding: 6px;
   background: ${(props) =>
-    props.theme.mode === "DARK" ? props.theme.body.secondary.base : "#f8f9fb"};
+    props.theme.mode === "DARK" ? props.theme.body.primary.base : props.theme.body.primary.base};
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -200,9 +185,9 @@ export const Thumbnail = styled.button`
 
 export const ThumbnailImage = styled.img`
   width: 100%;
-  height: 96px;
+  height: 74px;
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: 10px;
 `;
 
 export const FooterActions = styled.div`
@@ -211,22 +196,27 @@ export const FooterActions = styled.div`
   gap: 12px;
 
   @media (max-width: 560px) {
-    flex-direction: column;
+    justify-content: stretch;
+    width: 100%;
   }
 `;
 
 export const CancelButton = styled.button`
-  border-radius: 10px;
-  border: 1px solid ${(props) => (props.theme.mode === "DARK" ? "#2a2a2a" : "#141414")};
+  border-radius: 12px;
+  border: 1px solid ${(props) => props.theme.border.primary};
   color: ${(props) => props.theme.text.primary};
-  background: ${(props) => (props.theme.mode === "DARK" ? "#111111" : "#f3eeee")};
+  background: ${(props) => props.theme.body.primary.base};
   padding: 12px 18px;
   font-weight: 600;
   cursor: pointer;
+
+  @media (max-width: 560px) {
+    flex: 1;
+  }
 `;
 
 export const SubmitButton = styled.button`
-  border-radius: 10px;
+  border-radius: 12px;
   border: 1px solid transparent;
   background: ${(props) => props.theme.primary.base};
   color: #ffffff;
@@ -238,6 +228,10 @@ export const SubmitButton = styled.button`
   gap: 8px;
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   opacity: ${(props) => (props.disabled ? 0.6 : 1)};
+
+  @media (max-width: 560px) {
+    flex: 1;
+  }
 `;
 
 export const Title = styled.h1`

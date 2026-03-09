@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import {
   ActionRow,
   BackButton,
-  Badge,
   CancelButton,
   Card,
   DescriptionField,
@@ -12,7 +11,6 @@ import {
   FooterActions,
   FormRow,
   Input,
-  Label,
   MainTitleField,
   Page,
   Preview,
@@ -78,15 +76,20 @@ const DocumentEditor = () => {
 
         if (isPdf) {
           const pdfjsLib = await import("pdfjs-dist");
-          const pdfWorkerSrc = (await import("pdfjs-dist/build/pdf.worker.min.mjs?url"))
-            .default;
+          const pdfWorkerSrc = (
+            await import("pdfjs-dist/build/pdf.worker.min.mjs?url")
+          ).default;
           pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerSrc;
 
           const data = await file.arrayBuffer();
           const pdfDocument = await pdfjsLib.getDocument({ data }).promise;
           const extractedPages = [];
 
-          for (let pageIndex = 1; pageIndex <= pdfDocument.numPages; pageIndex += 1) {
+          for (
+            let pageIndex = 1;
+            pageIndex <= pdfDocument.numPages;
+            pageIndex += 1
+          ) {
             const page = await pdfDocument.getPage(pageIndex);
             const viewport = page.getViewport({ scale: 1.3 });
             const canvas = document.createElement("canvas");
@@ -118,9 +121,13 @@ const DocumentEditor = () => {
           return;
         }
 
-        setError("Unsupported file format. Please upload PDF, PNG, JPG, or JPEG.");
+        setError(
+          "Unsupported file format. Please upload PDF, PNG, JPG, or JPEG.",
+        );
       } catch (extractError) {
-        setError(extractError.message || "Failed to process the uploaded file.");
+        setError(
+          extractError.message || "Failed to process the uploaded file.",
+        );
       } finally {
         setIsExtracting(false);
       }
@@ -139,8 +146,8 @@ const DocumentEditor = () => {
   const handlePageFieldChange = (field, value) => {
     setPages((prevPages) =>
       prevPages.map((page, index) =>
-        index === activePageIndex ? { ...page, [field]: value } : page
-      )
+        index === activePageIndex ? { ...page, [field]: value } : page,
+      ),
     );
   };
 
@@ -183,8 +190,14 @@ const DocumentEditor = () => {
     return (
       <Page>
         <Card>
+          <BackButton type="button" onClick={handleCancel}>
+            <ArrowLeft size={16} />
+            Back
+          </BackButton>
           <Title>No Uploaded File Found</Title>
-          <Subtitle>Please upload a file first and then click Proceed.</Subtitle>
+          <Subtitle>
+            Please upload a file first and then click Proceed.
+          </Subtitle>
           <ActionRow>
             <CancelButton type="button" onClick={handleCancel}>
               Back To Upload
@@ -198,17 +211,11 @@ const DocumentEditor = () => {
   return (
     <Page>
       <Card>
-        <BackButton type="button" onClick={handleCancel}>
-          <ArrowLeft size={16} />
-          Back
-        </BackButton>
-
-        <Label htmlFor="main-title">MAIN TITLE</Label>
         <MainTitleField
           id="main-title"
           value={mainTitle}
           onChange={(event) => setMainTitle(event.target.value)}
-          placeholder="Enter document title"
+          placeholder="Main Title (Input field)"
         />
 
         <Preview>
@@ -218,34 +225,34 @@ const DocumentEditor = () => {
               Extracting PDF pages...
             </EmptyState>
           ) : activePage ? (
-            <PreviewImage src={activePage.imageUrl} alt={`Page ${activePage.pageNumber}`} />
+            <PreviewImage
+              src={activePage.imageUrl}
+              alt={`Page ${activePage.pageNumber}`}
+            />
           ) : (
             <EmptyState>No page preview available.</EmptyState>
           )}
-          <Badge>{pageCounter}</Badge>
         </Preview>
 
         <FormRow>
-          <div>
-            <Label htmlFor="page-title">PAGE TITLE</Label>
-            <Input
-              id="page-title"
-              value={activePage?.pageTitle || ""}
-              onChange={(event) => handlePageFieldChange("pageTitle", event.target.value)}
-              placeholder="Enter page title"
-              disabled={!activePage}
-            />
-          </div>
-          <div>
-            <Label htmlFor="description">DESCRIPTION</Label>
-            <DescriptionField
-              id="description"
-              value={activePage?.description || ""}
-              onChange={(event) => handlePageFieldChange("description", event.target.value)}
-              placeholder="Enter page description"
-              disabled={!activePage}
-            />
-          </div>
+          <Input
+            id="page-title"
+            value={activePage?.pageTitle || ""}
+            onChange={(event) =>
+              handlePageFieldChange("pageTitle", event.target.value)
+            }
+            placeholder="Page Title (Input field)"
+            disabled={!activePage}
+          />
+          <DescriptionField
+            id="description"
+            value={activePage?.description || ""}
+            onChange={(event) =>
+              handlePageFieldChange("description", event.target.value)
+            }
+            placeholder="Description (TextArea)"
+            disabled={!activePage}
+          />
         </FormRow>
 
         <ThumbnailsRow>
@@ -275,11 +282,12 @@ const DocumentEditor = () => {
             onClick={handleSubmit}
           >
             {isSubmitting ? <Loader2 size={16} /> : <Check size={16} />}
-            {isSubmitting ? "Submitting..." : "Submit Changes"}
+            {isSubmitting ? "Submitting..." : "Submit"}
           </SubmitButton>
         </FooterActions>
 
         {error && <Subtitle>{error}</Subtitle>}
+        {!error && <Subtitle>{pageCounter}</Subtitle>}
       </Card>
     </Page>
   );
