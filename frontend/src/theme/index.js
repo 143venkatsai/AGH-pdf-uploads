@@ -31,7 +31,7 @@ export const LIGHT_THEME = {
   question_item_text: "#262626",
   question_label: "#515151",
   primary: {
-    base: "#FD6A7F",
+    base: "#E53935",
     hover: "#f3f4f6",
   },
 
@@ -169,7 +169,7 @@ export const DARK_THEME = {
   question_item_text: "#C5C5C5",
   question_label: "#C5C5C5",
   primary: {
-    base: "#FD6A7F",
+    base: "#E53935",
     hover: "#f3f4f6",
   },
   secondary: {

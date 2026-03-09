@@ -4,6 +4,8 @@ import { LIGHT_THEME, DARK_THEME } from "./theme";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { useSelector } from "react-redux";
+import Home from "./pages/Home/Home";
+import DocumentEditor from "./pages/DocumentEditor/DocumentEditor";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -178,7 +180,8 @@ function App() {
       <GlobalStyle />
       <Router>
         <Routes>
-          <Route path="/" element={<h1>File Upload</h1>} />
+          <Route path="/" element={<Home />} />
+          <Route path="/document-editor" element={<DocumentEditor />} />
         </Routes>
       </Router>
     </ThemeProvider>

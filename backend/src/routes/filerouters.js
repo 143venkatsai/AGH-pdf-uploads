@@ -7,8 +7,14 @@ const {
   deleteFile
 } = require("../controllers/fileController");
 
-
-router.post("/upload", upload.single("pdf"), uploadPdf);
+router.post(
+  "/upload",
+  upload.fields([
+    { name: "pdf", maxCount: 1 },
+    { name: "file", maxCount: 1 },
+  ]),
+  uploadPdf
+);
 router.delete("/:id", deleteFile);
 
 
